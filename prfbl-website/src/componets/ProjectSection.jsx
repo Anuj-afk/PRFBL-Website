@@ -5,35 +5,35 @@ const VISIBLE_COUNT = 4;
 
 const images = [
     {
-        image: "/Background/bg1.png",
+        image: "/PRFBL-Website/Background/bg1.png",
         title: "Web Portal",
     },
     {
-        image: "/Background/bg2.png",
+        image: "/PRFBL-Website/Background/bg2.png",
         title: "Web Portal",
     },
     {
-        image: "/Background/bg3.png",
+        image: "/PRFBL-Website/Background/bg3.png",
         title: "Product Gallery",
     },
     {
-        image: "/Background/bg4.png",
+        image: "/PRFBL-Website/Background/bg4.png",
         title: "Product Gallery",
     },
     {
-        image: "/Background/bg5.png",
+        image: "/PRFBL-Website/Background/bg5.png",
         title: "Medical Website",
     },
     {
-        image: "/Background/bg6.png",
+        image: "/PRFBL-Website/Background/bg6.png",
         title: "Medical Website",
     },
     {
-        image: "/Background/bg7.png",
+        image: "/PRFBL-Website/Background/bg7.png",
         title: "CMS Based",
     },
     {
-        image: "/Background/bg8.png",
+        image: "/PRFBL-Website/Background/bg8.png",
         title: "CMS Based",
     },
 ];

@@ -3,28 +3,28 @@ import React from "react";
 function CompanySection() {
     const images = [
         {
-            image: "/CompanyLogo/logo1.png",
+            image: "/PRFBL-Website/CompanyLogo/logo1.png",
         },
         {
-            image: "/CompanyLogo/logo2.png",
+            image: "/PRFBL-Website/CompanyLogo/logo2.png",
         },
         {
-            image: "/CompanyLogo/logo3.png",
+            image: "/PRFBL-Website/CompanyLogo/logo3.png",
         },
         {
-            image: "/CompanyLogo/logo4.png",
+            image: "/PRFBL-Website/CompanyLogo/logo4.png",
         },
         {
-            image: "/CompanyLogo/logo5.png",
+            image: "/PRFBL-Website/CompanyLogo/logo5.png",
         },
         {
-            image: "/CompanyLogo/logo6.png",
+            image: "/PRFBL-Website/CompanyLogo/logo6.png",
         },
         {
-            image: "/CompanyLogo/logo7.png",
+            image: "/PRFBL-Website/CompanyLogo/logo7.png",
         },
         {
-            image: "/CompanyLogo/logo8.png",
+            image: "/PRFBL-Website/CompanyLogo/logo8.png",
         },
     ];
 
