@@ -97,7 +97,7 @@ const ProjectSection = () => {
     }, [index]);
 
     return (
-        <section className="w-full bg-white  flex flex-col overflow-hidden h-fit pb-8">
+        <section className="w-full bg-white  flex flex-col overflow-hidden h-fit pb-8 mt-12">
             <div className="flex justify-around items-center mt-8 px-6">
                 <div className="flex flex-col gap-6">
                     <span className="w-fit h-fit pl-6 relative font-medium before">

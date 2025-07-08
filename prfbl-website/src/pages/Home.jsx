@@ -6,6 +6,9 @@ import Navbar from "../componets/Ui/Navbar";
 import ServicesCard from "../componets/ServicesCard";
 import ProjectSection from "../componets/ProjectSection";
 import CompanySection from "../componets/CompanySection";
+import Logo from "../assets/WhiteLogo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 function Home() {
     return (
@@ -103,11 +106,108 @@ function Home() {
                 <CompanySection></CompanySection>
             </section>
             <section className="h-[735px] w-full bg-black mt-24">
-                <div>
-
+                <div className="flex justify-center items-center gap-56 h-[445px] w-full text-white border-b border-gray-500">
+                    <div className="h-full w-fit flex flex-col gap-8 items-center justify-center">
+                        <span className="font-medium mb-2 text-left text-lg">
+                            Lets Connect And Create
+                        </span>
+                        <img src={Logo} alt="" className="w-64" />
+                        <div className="flex gap-6 w-fit h-fit justify-center items-center">
+                            <i className="fi fi-brands-facebook hover:text-blue-500 hover:bg-white text-2xl bg-gray-500 w-10 h-10 items-center rounded-full flex justify-center"></i>
+                            <i className="fi fi-brands-instagram hover:text-blue-500 hover:bg-white text-2xl bg-gray-500 w-10 h-10 items-center rounded-full flex justify-center "></i>
+                            <i className="fi fi-brands-twitter-alt hover:text-blue-500 hover:bg-white text-2xl bg-gray-500 w-10 h-10 items-center rounded-full flex justify-center"></i>
+                        </div>
+                    </div>
+                    <div className="h-full w-fit flex flex-col gap-8  justify-center text-left">
+                        <span className="font-medium mb-2 text-left text-2xl">
+                            Link
+                        </span>
+                        <div className=" flex flex-col gap-2">
+                            <Link className="text-gray-400 hover:text-white">
+                                Home
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                About Us
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Our Portfolio
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Services
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Contact Us
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="h-full w-fit flex flex-col gap-8  justify-center text-left">
+                        <span className="font-medium mb-2 text-left text-2xl">
+                            Explore
+                        </span>
+                        <div className=" flex flex-col gap-2">
+                            <Link className="text-gray-400 hover:text-white">
+                                What we Offer
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Offer
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Our Story
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Latest Posts
+                            </Link>
+                            <Link className="text-gray-400 hover:text-white">
+                                Help Center
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-                <div>
-
+                <div className="h-[205px] w-full text-white flex justify-center border-b border-gray-500">
+                    <div className="flex gap-4 items-center justify-center border-r h-full border-gray-500 p-16">
+                        <div>
+                            <i className="fi fi-ts-marker text-4xl bg-gray-500 w-20 h-20 items-center rounded-full flex justify-center"></i>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <span className="font-medium">Location</span>
+                            <span className="text-gray-400">
+                                A-24/9, <br /> Mohan Co-operative Industrial
+                                Estate,
+                                <br></br>
+                                New Delhi - 110044
+                            </span>
+                        </div>
+                    </div>
+                    <div className="flex gap-4 items-center justify-center border-r h-full border-gray-500 p-16">
+                        <div>
+                            <i className="fi fi-rr-clock text-4xl bg-gray-500 w-20 h-20 items-center rounded-full flex justify-center"></i>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <span className="font-medium">Working Hours</span>
+                            <span className="text-gray-400">
+                                Weekdays 8am-22pm <br />
+                                Weekend 10am -12pm
+                            </span>
+                        </div>
+                    </div>
+                    <div className="flex gap-4 items-center justify-center p-16">
+                        <div>
+                            <i className="fi fi-rr-phone-call text-4xl bg-gray-500 w-20 h-20 items-center rounded-full flex justify-center"></i>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <span className="font-medium">Contact Us</span>
+                            <span className="text-gray-400">
+                                info@prfbl.com <br />
+                                8287459985
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className="h-[85px] w-full text-gray-400 flex justify-center items-center">
+                    <span>
+                        © Copyright 2025 PRFBL Technologies Pvt. Ltd. All Rights
+                        Reserved.
+                    </span>
                 </div>
             </section>
         </div>

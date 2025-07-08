@@ -1,5 +1,5 @@
 import React from "react";
-import Placeholder from "../../assets/image.png";
+import Placeholder from "../../assets/Placeholder.png";
 
 function String() {
     return (
