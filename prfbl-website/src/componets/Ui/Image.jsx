@@ -1,10 +1,12 @@
 import React from "react";
 import Placeholder from "../../assets/Placeholder.png";
 
-function String() {
+
+function String({imageSrc}) {
+    console.log(imageSrc)
     return (
-        <div className="items-center">
-            <svg viewBox="0 0 900 600" width="900" height="600">
+        <div className={`items-center flex justify-center`}>
+            <svg viewBox="0 0 900 600" width="900" height="600" className="">
                 <defs>
                     <clipPath id="blobClip">
                         <path
@@ -75,10 +77,14 @@ function String() {
                     />
                 </path>
                 <image
-                    href={Placeholder}
-                    width="900"
-                    height="600"
+                    href={imageSrc}
                     clipPath="url(#blobClip)"
+                    x="200"
+                    y="100"
+                    width="500"
+                    height="400"
+                    
+                    preserveAspectRatio="xMidYMid meet"
                 />
             </svg>
         </div>

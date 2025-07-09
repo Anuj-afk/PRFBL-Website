@@ -10,12 +10,32 @@ export default {
         zoomIn: {
           "0%": {}
         },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        marquee_reverse: {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+        cubeRotate: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '25%': { transform: 'rotateY(90deg)' },
+          '50%': { transform: 'rotateY(180deg)' },
+          '75%': { transform: 'rotateY(270deg)' },
+          '100%': { transform: 'rotateY(360deg)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 20s linear infinite',
+        marquee_reverse: 'marquee_reverse 20s linear infinite',
+        'cube-spin': 'cubeRotate 20s infinite linear',
       },
       transform: {
         'rotate-y-180': 'rotateY(180deg)',
       },
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Exo', 'sans-serif'],
       },
     },
   },

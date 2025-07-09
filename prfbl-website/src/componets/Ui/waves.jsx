@@ -6,7 +6,7 @@ function Waves() {
             <svg
                 id="visual"
                 viewBox="0 300 900 200"
-                className="block w-full h-auto"
+                className=""
                 version="1.1"
             >
                 <path
@@ -21,7 +21,7 @@ function Waves() {
             <svg
                 id="visual"
                 viewBox="0 300 900 218"
-                className="absolute top-0 left-0 w-full h-auto -z-10"
+                className="absolute top-0 left-0 w-full h-auto -z-10 bg-[#FFF7EE]"
                 version="1.1"
             >
                 <path

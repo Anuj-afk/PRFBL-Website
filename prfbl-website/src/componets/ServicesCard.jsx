@@ -83,8 +83,8 @@ function ServicesCard() {
                         Website Design & Development
                     </span>
                 </div>
-                <div>
-                    <span className="w-fit h-fit text-[#7C7E87] text-xs ">
+                <div className="max-h-30 overflow-hidden">
+                    <span className="w-fit h-fit text-[#7C7E87] text-xs  ">
                         We create stunning, responsive websites tailored to your
                         brand. From design to development, we deliver
                         user-friendly and high-performing digital experiences
@@ -173,15 +173,16 @@ function ServicesCard() {
                 </div>
                 <div className="h-fit w-fit">
                     <span className="w-fit h-fit text-xl font-semibold group-hover:text-blue-700">
-                        Website Design & Development
+                        Mobile Application
                     </span>
                 </div>
-                <div>
+                <div className="max-h-30 overflow-hidden">
                     <span className="w-fit h-fit text-[#7C7E87] text-xs ">
-                        We create stunning, responsive websites tailored to your
-                        brand. From design to development, we deliver
-                        user-friendly and high-performing digital experiences
-                        that engage visitors and drive results.
+                        We build intuitive and high-performing mobile apps
+                        tailored to your needs. Our services cover all major
+                        platforms, including Android, iOS, and Hybrid
+                        solutions—ensuring seamless performance, beautiful
+                        design, and a user-first experience across devices.
                     </span>
                 </div>
                 <div>
@@ -330,15 +331,16 @@ function ServicesCard() {
                 </div>
                 <div className="h-fit w-fit">
                     <span className="w-fit h-fit text-xl font-semibold group-hover:text-blue-700">
-                        Website Design & Development
+                        Digital Marketing
                     </span>
                 </div>
-                <div>
+                <div className="max-h-30 overflow-hidden">
                     <span className="w-fit h-fit text-[#7C7E87] text-xs ">
-                        We create stunning, responsive websites tailored to your
-                        brand. From design to development, we deliver
-                        user-friendly and high-performing digital experiences
-                        that engage visitors and drive results.
+                        Grow your brand with our strategic social media
+                        services. We offer complete solutions across Strategy,
+                        Management, and Advertising—helping you connect with
+                        your audience, boost engagement, and drive measurable
+                        results across all major platforms.
                     </span>
                 </div>
                 <div>
@@ -398,15 +400,16 @@ function ServicesCard() {
                 </div>
                 <div className="h-fit w-fit">
                     <span className="w-fit h-fit text-xl font-semibold group-hover:text-blue-700">
-                        Website Design & Development
+                        Software Development
                     </span>
                 </div>
-                <div>
+                <div className="max-h-30 overflow-hidden">
                     <span className="w-fit h-fit text-[#7C7E87] text-xs ">
-                        We create stunning, responsive websites tailored to your
-                        brand. From design to development, we deliver
-                        user-friendly and high-performing digital experiences
-                        that engage visitors and drive results.
+                        We deliver custom software solutions that streamline
+                        operations and boost productivity. Our expertise spans
+                        Web, Desktop, and Cloud applications—designed to meet
+                        your unique business needs with robust functionality,
+                        scalability, and seamless user experience.
                     </span>
                 </div>
                 <div>
@@ -461,15 +464,17 @@ function ServicesCard() {
                 </div>
                 <div className="h-fit w-fit">
                     <span className="w-fit h-fit text-xl font-semibold group-hover:text-blue-700">
-                        Website Design & Development
+                        E-commerce Vendor Management
                     </span>
                 </div>
-                <div>
-                    <span className="w-fit h-fit text-[#7C7E87] text-xs ">
-                        We create stunning, responsive websites tailored to your
-                        brand. From design to development, we deliver
-                        user-friendly and high-performing digital experiences
-                        that engage visitors and drive results.
+                <div className="max-h-30 overflow-hidden">
+                    <span className="w-fit h-fit text-[#7C7E87] text-xs">
+                        We help you grow your online sales by managing top
+                        eCommerce platforms like Amazon, Flipkart, and Meesho.
+                        Our services include Listing, Optimization, and
+                        Promotion—ensuring better visibility, higher
+                        conversions, and smooth operations across all major
+                        marketplaces.
                     </span>
                 </div>
                 <div>
@@ -489,6 +494,7 @@ function ServicesCard() {
                     </svg>
                 </div>
             </div>
+            
         </>
     );
 }

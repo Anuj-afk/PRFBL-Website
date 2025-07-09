@@ -38,16 +38,69 @@ function CompanySection() {
                     Trusted by thousands Business
                 </span>
             </div>
-            <div className="w-[1200px] h-[350px] flex flex-wrap ">
-                {images.map((img, idx) => (
-                    <div key={idx} className="w-[299px] h-[175px] flex justify-center p-8 border group">
-                        <img
-                            src={img.image}
-                            alt=""
-                            className=" group-hover:[filter:grayscale(70%)] "
-                        />
+            <div className="overflow-hidden w-full h-fit flex bg-gray-50 mt-12">
+                <div className="flex animate-marquee w-[200%]">
+                    <div className="flex w-1/2 gap-16">
+                        {images.map((img, idx) => (
+                            <div
+                                key={idx}
+                                className="w-[300px] h-[175px] flex justify-center p-8  group"
+                            >
+                                <img
+                                    src={img.image}
+                                    alt=""
+                                    className=" group-hover:[filter:grayscale(70%)] "
+                                />
+                            </div>
+                        ))}
                     </div>
-                ))}
+                    <div className="flex w-1/2 gap-16">
+                        {images.map((img, idx) => (
+                            <div
+                                key={idx}
+                                className="w-[300px] h-[175px] flex justify-center p-8  group"
+                            >
+                                <img
+                                    src={img.image}
+                                    alt=""
+                                    className=" group-hover:[filter:grayscale(70%)] "
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className="overflow-hidden w-full h-fit flex bg-gray-50">
+                <div className="flex animate-marquee_reverse w-[200%]">
+                    <div className="flex w-1/2 gap-16">
+                        {images.map((img, idx) => (
+                            <div
+                                key={idx}
+                                className="w-[300px] h-[175px] flex justify-center p-8  group"
+                            >
+                                <img
+                                    src={img.image}
+                                    alt=""
+                                    className=" group-hover:[filter:grayscale(70%)] "
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex w-1/2 gap-16">
+                        {images.map((img, idx) => (
+                            <div
+                                key={idx}
+                                className="w-[300px] h-[175px] flex justify-center p-8  group"
+                            >
+                                <img
+                                    src={img.image}
+                                    alt=""
+                                    className=" group-hover:[filter:grayscale(70%)] "
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </>
     );

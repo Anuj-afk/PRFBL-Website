@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Waves from "../componets/Ui/waves";
 import String from "../componets/Ui/Image";
@@ -9,8 +9,54 @@ import CompanySection from "../componets/CompanySection";
 import Logo from "../assets/WhiteLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import banner1 from "../assets/banner/banner1.png";
+import banner2 from "../assets/banner/banner2.png";
+import banner3 from "../assets/banner/banner3.png";
+import banner4 from "../assets/banner/banner4.png";
+import banner5 from "../assets/banner/banner5.png";
+
+const slides = [
+    {
+        text: "Where Ideas",
+        br: "Become ",
+        highlight: "Interfaces",
+        image: banner1,
+    },
+    {
+        text: "Crafting Tomorrow's",
+        br:  "Web ",
+        highlight: "Today ",
+        image: banner2,
+    },
+    {
+        text: "Engineered for Excellence ",
+        br:  "Designed ",
+        highlight: "For Growth ",
+        image: banner3,
+    },
+    {
+        text: "Build. Deploy. Scale. ",
+        image: banner4,
+    },
+    {
+        text: "Join The",
+        br: "Future Of ",
+        highlight: "Tech",
+        image: banner5,
+    },
+];
 
 function Home() {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prev) => (prev + 1) % slides.length);
+        }, 5000); // 5 seconds per slide
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <div className="flex flex-col min-h-screen max-w-screen overflow-x-hidden">
             <div className="h-[70%]">
@@ -23,28 +69,41 @@ function Home() {
                 />
                 <Navbar></Navbar>
             </div>
-            <section className="w-screen h-full flex items-center z-10">
-                <div className=" w-[50%] h-full items-end flex justify-center flex-col gap-4">
-                    <div className="w-full pl-[40%] text-left">
-                        <span className="relative pl-6 before after">
-                            Welcome To PRFBL
-                        </span>
+            <section className="w-screen h-[700px] relative flex items-center z-10 overflow-hidden">
+                {slides.map((slide, i) => (
+                    <div
+                        key={i}
+                        className={`absolute top-0 left-0 ml-28 w-full h-full flex items-center transition-all duration-1000 ease-in-out
+        ${i === index ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                    >
+                        {/* Left text content */}
+                        <div className="w-1/2 h-full flex flex-col justify-center gap-6 px-16">
+                            <div>
+                                <span className="relative pl-6 text-sm  uppercase tracking-wide before after ">
+                                    Welcome To PRFBL
+                                </span>
+                            </div>
+                            <div className="font-semibold text-left">
+                                <h2 className="text-5xl md:text-6xl leading-tight">
+                                    {slide.text}<br></br>{slide.br}
+                                    <span className="text-purple-500">
+                                        {slide.highlight}
+                                    </span>
+                                </h2>
+                            </div>
+                            <div className="mt-6">
+                                <button className="bg-purple-500 hover:bg-black transition-all duration-500 text-white px-8 py-4 rounded-full text-sm font-semibold">
+                                    Discover More
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Right blob image */}
+                        <div className="w-1/2 h-full flex items-center justify-center">
+                            <String imageSrc={slide.image} />
+                        </div>
                     </div>
-                    <div className="flex flex-col w-full pl-[40%] text-left font-semibold">
-                        <span className="text-6xl">Where Ideas </span>
-                        <span className="text-6xl flex flex-row gap-4">
-                            {" "}
-                            Become{" "}
-                            <span className="text-purple-500"> Interfaces</span>
-                        </span>
-                    </div>
-                    <div className="w-full pl-[40%] flex items-center mt-8">
-                        <button className="bg-purple-500 rounded-full w-fit px-8 h-fit py-4 text-white font-sans font-semibold text-sm hover:bg-black duration-500">
-                            Discover More
-                        </button>
-                    </div>
-                </div>
-                <String></String>
+                ))}
             </section>
             <section className="w-screen">
                 <Waves></Waves>
@@ -61,8 +120,16 @@ function Home() {
                         ux/ui design / mobile app / branding / development /
                         digital marketing
                     </span>
-                    <div className="flex flex-row h-fit w-full items-center justify-center mt-16 gap-12">
-                        <ServicesCard></ServicesCard>
+                    <div className="overflow-hidden w-full h-fit">
+                        <div className="flex animate-marquee w-[200%]">
+                            <div className="flex w-1/2 gap-16">
+                                <ServicesCard></ServicesCard>
+                            </div>
+
+                            <div className="flex w-1/2 gap-16">
+                                <ServicesCard></ServicesCard>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 items-center justify-center px-32">
@@ -72,19 +139,22 @@ function Home() {
                     <span className="text-4xl w-fit h-fit px-1 font-semibold">
                         PRFBL Technologies
                     </span>
-                    <span className="text-[#7c7e87] w-[40%] text-center">
-                        We are a tech-creative digital growth marketing agency,
-                        made up of talented growth hackers, CRO experts,
-                        engineers, digital marketing and advertising strategists
-                        who are dedicated to change this industry, and helping
-                        businesses convert leads into sales through the most
-                        innovative techniques available today.
-                    </span>
-                    <span className="text-[#7c7e87] w-[40%] text-center">
-                        Our team is constantly learning, in search of big ideas
-                        and never resting on what’s been done in the past. We
-                        seek out creativity and innovation.
-                    </span>
+                    <div className=" flex w-full justify-around mt-4">
+                        <span className="text-[#7c7e87] w-[40%] text-center">
+                            We are a tech-creative digital growth marketing
+                            agency, made up of talented growth hackers, CRO
+                            experts, engineers, digital marketing and
+                            advertising strategists who are dedicated to change
+                            this industry, and helping businesses convert leads
+                            into sales through the most innovative techniques
+                            available today.
+                        </span>
+                        <span className="text-[#7c7e87] w-[40%] text-center">
+                            Our team is constantly learning, in search of big
+                            ideas and never resting on what’s been done in the
+                            past. We seek out creativity and innovation.
+                        </span>
+                    </div>
                 </div>
             </section>
             <section className="w-full h-48 bg-[#A855F7] flex justify-around items-center">
@@ -102,11 +172,11 @@ function Home() {
                 </div>
             </section>
             <ProjectSection></ProjectSection>
-            <section className="flex flex-col items-center w-full h-fit gap-12 overflow-hidden my-8">
+            <section className="flex flex-col items-center w-full h-fit overflow-hidden my-8">
                 <CompanySection></CompanySection>
             </section>
-            <section className="h-[735px] w-full bg-black mt-24">
-                <div className="flex justify-center items-center gap-56 h-[445px] w-full text-white border-b border-gray-500">
+            <section className="h-fit w-full bg-black mt-24">
+                <div className="flex justify-center items-center gap-56 h-fit p-12 w-full text-white border-b border-gray-500">
                     <div className="h-full w-fit flex flex-col gap-8 items-center justify-center">
                         <span className="font-medium mb-2 text-left text-lg">
                             Lets Connect And Create
@@ -203,13 +273,16 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="h-[85px] w-full text-gray-400 flex justify-center items-center">
+                <div className="h-fit p-4 w-full text-gray-400 flex justify-center items-center">
                     <span>
                         © Copyright 2025 PRFBL Technologies Pvt. Ltd. All Rights
                         Reserved.
                     </span>
                 </div>
             </section>
+            <div className="w-20 h-8 bg-[#FFA733] right-0 top-1/2 fixed z-20 flex items-center justify-start p-2 cursor-pointer hover:w-32 duration-200">
+                <span className="text-white font-medium">Enquiry</span>
+            </div>
         </div>
     );
 }
