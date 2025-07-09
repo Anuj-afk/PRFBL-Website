@@ -4,7 +4,7 @@ import Logo from "../../assets/Logo.png";
 
 function Navbar() {
     return (
-        <div className="relative z-10 h-16 max-h-16 border-b border-white flex justify-around gap-6 py-4 items-center">
+        <div className="relative z-10 h-20 max-h-16 border-b border-white flex justify-around gap-6 py-4 items-center">
             <Link to={"/"} className="mb-2">
                 <img src={Logo} alt="" className="h-12 w-28" />
             </Link>
