@@ -1,9 +1,17 @@
 import React from "react";
+import { MobileSvg, WebsiteSvg, SoftwareSvg, EcommerceSvg, MarketingSvg } from "./Ui/Svg";
+function ServicesCard({service}) {
+    const svg = {
+        "mobile": <MobileSvg></MobileSvg>,
+        "website": <WebsiteSvg></WebsiteSvg>,
+        "software": <SoftwareSvg></SoftwareSvg>,
+        "ecommerce": <EcommerceSvg></EcommerceSvg>,
+        "marketing": <MarketingSvg></MarketingSvg>,
 
-function ServicesCard() {
+    }
     return (
         <>
-            <div className="hover:cursor-pointer w-[285px] h-[390px] bg-[#FFF7EE] rounded-xl border border-[#a855f7] p-4 group perspective flex flex-col gap-6">
+            {/* <div className="hover:cursor-pointer w-[285px] h-[390px] bg-[#FFF7EE] rounded-xl border border-[#a855f7] p-4 group perspective flex flex-col gap-6">
                 <div className="flex justify-start items-center px-2 py-2 bg-[#FFE4C2] rounded-xl w-fit h-fit p-2 transition-transform duration-500 ease-in-out group-hover:rotate-y-180 cursor-">
                     <svg
                         viewBox="0 0 1024 1024"
@@ -493,8 +501,38 @@ function ServicesCard() {
                         />
                     </svg>
                 </div>
+            </div> */}
+            <div className="hover:cursor-pointer w-[285px] h-[390px] bg-[#FFF7EE] rounded-xl border border-[#a855f7] p-4 group perspective flex flex-col gap-6">
+                <div  className="flex justify-start items-center px-2 py-2 bg-[#FFE4C2] rounded-xl w-fit h-fit p-2 transition-transform duration-500 ease-in-out group-hover:rotate-y-180 cursor-">
+                    {svg[service.icon]}
+                </div>
+                <div className="h-fit w-fit">
+                    <span className="w-fit h-fit text-xl font-semibold group-hover:text-blue-700">
+                        {service.title}
+                    </span>
+                </div>
+                <div className="max-h-30 overflow-hidden">
+                    <span className="w-fit h-fit text-[#7C7E87] text-xs  ">
+                        {service.description}
+                    </span>
+                </div>
+                <div>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 28 28"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                        className="size-6 text-blue-700 group-hover:-rotate-[315deg] group-hover:text-black duration-300"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                        />
+                    </svg>
+                </div>
             </div>
-            
         </>
     );
 }

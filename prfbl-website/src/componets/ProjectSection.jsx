@@ -3,39 +3,8 @@ import { useEffect, useRef, useState } from "react";
 const CARD_WIDTH = 435 + 16; // width + margin-right
 const VISIBLE_COUNT = 4;
 
-const images = [
-    {
-        image: "/PRFBL-Website/Background/bg1.png",
-        title: "Web Portal",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg2.png",
-        title: "Web Portal",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg3.png",
-        title: "Product Gallery",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg4.png",
-        title: "Product Gallery",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg5.png",
-        title: "Medical Website",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg6.png",
-        title: "Medical Website",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg7.png",
-        title: "CMS Based",
-    },
-    {
-        image: "/PRFBL-Website/Background/bg8.png",
-        title: "CMS Based",
-    },
+let images = [
+
 ];
 
 
@@ -47,7 +16,8 @@ const getClonedImages = () => {
     ];
 };
 
-const ProjectSection = () => {
+const ProjectSection = ({projects}) => {
+    images = projects
     const [index, setIndex] = useState(VISIBLE_COUNT); // Start at first real image
     const [isTransitioning, setIsTransitioning] = useState(true);
     const sliderRef = useRef(null);

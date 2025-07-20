@@ -3,7 +3,6 @@ import Placeholder from "../../assets/Placeholder.png";
 
 
 function String({imageSrc}) {
-    console.log(imageSrc)
     return (
         <div className={`items-center flex justify-center`}>
             <svg viewBox="0 0 900 600" width="900" height="600" className="">
