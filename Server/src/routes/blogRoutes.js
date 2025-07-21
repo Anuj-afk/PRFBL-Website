@@ -17,8 +17,8 @@ blogRouter.get("/", getAllBlogs);
 blogRouter.get("/:id", getBlogById);
 
 // Admin-only routes
-blogRouter.post("/", protect, verifyAdmin, upload.single("coverImage"), createBlog);
-blogRouter.put("/:id", protect, verifyAdmin, upload.single("coverImage"), updateBlog);
-blogRouter.delete("/:id", protect, verifyAdmin, deleteBlog);
+blogRouter.post("/", verifyAdmin, upload.single("coverImage"), createBlog);
+blogRouter.put("/:id", verifyAdmin, upload.single("coverImage"), updateBlog);
+blogRouter.delete("/:id",  verifyAdmin, deleteBlog);
 
 export default blogRouter;

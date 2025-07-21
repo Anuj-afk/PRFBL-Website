@@ -5,7 +5,7 @@ const blogSchema = new mongoose.Schema({
     content: { type: String, required: true },
     coverImage: { type: String }, // URL or path
     createdAt: { type: Date, default: Date.now },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    author: { type: String },
 });
 
 export default mongoose.model("Blog", blogSchema);

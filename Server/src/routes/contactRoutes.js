@@ -9,6 +9,6 @@ import { verifyAdmin } from "../middlewares/verify.js";
 const contactRouter = express.Router();
 
 contactRouter.post("/", submitContactForm); // Anyone can submit
-contactRouter.get("/", protect, verifyAdmin, getAllContacts); // Admin only
+contactRouter.get("/", verifyAdmin, getAllContacts); // Admin only
 
 export default contactRouter;

@@ -12,14 +12,14 @@ export const getBlogById = async (req, res) => {
 };
 
 export const createBlog = async (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, author } = req.body;
     const coverImage = req.file?.path;
 
     const newBlog = new Blog({
         title,
         content,
         coverImage,
-        author: req.user._id,
+        author,
     });
 
     await newBlog.save();
