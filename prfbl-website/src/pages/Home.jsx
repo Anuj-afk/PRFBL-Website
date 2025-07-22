@@ -14,7 +14,7 @@ import Loader from "../componets/Ui/Loader";
 
 let slides = [];
 let services = [];
-let projects = []
+let projects = [];
 
 function Home() {
     const [index, setIndex] = useState(0);
@@ -63,7 +63,8 @@ function Home() {
                 <Loader></Loader>
             ) : (
                 <>
-                    <div className="h-[70%]">
+                    <div className="relative w-screen z-0">
+                        {/* Background for hero section */}
                         <div
                             className="absolute inset-0 -z-20"
                             style={{
@@ -71,46 +72,55 @@ function Home() {
                                     "linear-gradient(to top right, #FFF7EE 0%, #FFF7EE 70%, #FFD6A1 100%)",
                             }}
                         />
-                        <Navbar></Navbar>
-                    </div>
-                    <section className="w-screen h-[700px] relative flex items-center z-10 overflow-hidden">
-                        {slides.map((slide, i) => (
-                            <div
-                                key={i}
-                                className={`absolute top-0 left-0 ml-28 w-full h-full flex items-center transition-all duration-1000 ease-in-out
-        ${i === index ? "opacity-100 z-10" : "opacity-0 z-0"}`}
-                            >
-                                {/* Left text content */}
-                                <div className="w-1/2 h-full flex flex-col justify-center gap-6 px-16">
-                                    <div>
-                                        <span className="relative pl-6 text-sm  uppercase tracking-wide before after ">
-                                            Welcome To PRFBL
-                                        </span>
-                                    </div>
-                                    <div className="font-semibold text-left">
-                                        <h2 className="text-5xl md:text-6xl leading-tight">
-                                            {slide.text}
-                                            <br></br>
-                                            {slide.br}
-                                            <span className="text-purple-500">
-                                                {slide.highlight}
-                                            </span>
-                                        </h2>
-                                    </div>
-                                    <div className="mt-6">
-                                        <button className="bg-purple-500 hover:bg-black transition-all duration-500 text-white px-8 py-4 rounded-full text-sm font-semibold">
-                                            Discover More
-                                        </button>
-                                    </div>
-                                </div>
 
-                                {/* Right blob image */}
-                                <div className="w-1/2 h-full flex items-center justify-center">
-                                    <String imageSrc={slides[index].image} />
+                        {/* Navbar and Hero content */}
+                        <Navbar />
+
+                        <section className="w-screen h-[700px] relative flex items-center z-10 overflow-hidden">
+                            {slides.map((slide, i) => (
+                                <div
+                                    key={i}
+                                    className={`absolute top-0 left-0 ml-28 w-full h-full flex items-center transition-all duration-1000 ease-in-out ${
+                                        i === index
+                                            ? "opacity-100 z-10"
+                                            : "opacity-0 z-0"
+                                    }`}
+                                >
+                                    {/* Left content */}
+                                    <div className="w-1/2 h-full flex flex-col justify-center gap-6 px-16">
+                                        <div>
+                                            <span className="relative pl-6 text-sm uppercase tracking-wide">
+                                                Welcome To PRFBL
+                                            </span>
+                                        </div>
+                                        <div className="font-semibold text-left">
+                                            <h2 className="text-5xl md:text-6xl leading-tight">
+                                                {slide.text}
+                                                <br />
+                                                {slide.br}
+                                                <span className="text-purple-500">
+                                                    {slide.highlight}
+                                                </span>
+                                            </h2>
+                                        </div>
+                                        <div className="mt-6">
+                                            <button className="bg-purple-500 hover:bg-black transition-all duration-500 text-white px-8 py-4 rounded-full text-sm font-semibold">
+                                                Discover More
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Right image */}
+                                    <div className="w-1/2 h-full flex items-center justify-center">
+                                        <String
+                                            imageSrc={slides[index].image}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </section>
+                            ))}
+                        </section>
+                    </div>
+
                     <section className="w-screen">
                         <Waves></Waves>
                     </section>
@@ -127,7 +137,7 @@ function Home() {
                                 development / digital marketing
                             </span>
                             <div className="overflow-hidden w-full h-fit">
-                                <div className="flex animate-marquee w-[200%]">
+                                <div className="flex gap-16 animate-marquee w-[200%]">
                                     <div className="flex w-1/2 gap-16">
                                         {services.map((service, i) => (
                                             <ServicesCard
@@ -190,7 +200,7 @@ function Home() {
                             </button>
                         </div>
                     </section>
-                    <ProjectSection  projects={projects}></ProjectSection>
+                    <ProjectSection projects={projects}></ProjectSection>
                     <section className="flex flex-col items-center w-full h-fit overflow-hidden my-8">
                         <CompanySection></CompanySection>
                     </section>
