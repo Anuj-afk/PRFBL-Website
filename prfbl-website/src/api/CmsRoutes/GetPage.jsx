@@ -1,37 +1,26 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-function CreatePage() {
+function GetPage() {
+    const [response, setResponse] = useState(null);
+    const [formData, setFormData] = useState({
+        slug: "",
+    });
 
-        const [response, setResponse] = useState(null);
-        const [formData, setFormData] = useState({
-            name: "",
-            slug: "",
-        });
-    
-        const handleChange = (e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.value });
-        };
-
-    const handleCreatePage = async () => {
-        const res = await axios.post("http://localhost:3000/pages", {
-            name: formData.name,
-            slug: formData.slug,
-        });
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const handleGetPage = async () => {
+        const res = await axios.get(
+            `http://localhost:3000/pages/${formData.slug}`
+        );
         setResponse(res.data);
     };
 
     return (
         <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">Create Page</h2>
-
+            <h2 className="text-2xl font-bold mb-4">Get Page</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                    name="name"
-                    onChange={handleChange}
-                    placeholder="Page Name"
-                    className="border p-2"
-                />
                 <input
                     name="slug"
                     onChange={handleChange}
@@ -42,10 +31,10 @@ function CreatePage() {
 
             <div className="flex gap-4 mt-4 flex-wrap">
                 <button
-                    onClick={handleCreatePage}
+                    onClick={handleGetPage}
                     className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
-                    Create Page
+                    Get Page
                 </button>
             </div>
 
@@ -59,4 +48,4 @@ function CreatePage() {
     );
 }
 
-export default CreatePage;
+export default GetPage;

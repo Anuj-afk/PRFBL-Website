@@ -7,7 +7,11 @@ import GetAllBlogs from "./api/BlogRoutes/GetAllBLog";
 import GetBlogById from "./api/BlogRoutes/GetBlog";
 import UpdateBlog from "./api/BlogRoutes/UpdateBlog";
 import DeleteBlog from "./api/BlogRoutes/DeleteBlog";
-import CmsUI from "./api/CmsRoutes/CmsRouteui";
+import AddSection from "./api/CmsRoutes/AddSection";
+import CreatePage from "./api/CmsRoutes/CreatePage";
+import GetPage from "./api/CmsRoutes/GetPage";
+import HandleDeleteSection from "./api/CmsRoutes/HandleDeleteSection";
+import UpdateSection from "./api/CmsRoutes/UpdateSection";
 
 function App() {
     return (
@@ -32,8 +36,21 @@ function App() {
                     element={<DeleteBlog />}
                 />
                 <Route
-                    path="cms-routes/*"
-                    element={<CmsUI/>} 
+                    path="cms-routes/add-section"
+                    element={<AddSection />}
+                />
+                <Route
+                    path="cms-routes/create-page"
+                    element={<CreatePage />}
+                />
+                <Route path="cms-routes/get-page" element={<GetPage />} />
+                <Route
+                    path="cms-routes/delete-section"
+                    element={<HandleDeleteSection />}
+                />
+                <Route
+                    path="cms-routes/update-section"
+                    element={<UpdateSection />}
                 />
             </Route>
         </Routes>

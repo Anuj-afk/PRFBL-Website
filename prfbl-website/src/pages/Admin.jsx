@@ -81,7 +81,7 @@ function Admin() {
     };
 
     return (
-        <div className="flex">
+        <div className="flex gap-12">
             <div className="w-64 min-h-screen p-4 border-r text-sm font-mono bg-white">
                 {/* Top-level Routes Folder */}
                 <div
@@ -132,7 +132,7 @@ function Admin() {
                                                     .replace(/ /g, "-")}`;
                                                 const isActive =
                                                     location.pathname === path;
-                                                    console.log(path)
+                                                console.log(path);
 
                                                 return (
                                                     <li
@@ -174,7 +174,9 @@ function Admin() {
                     </ul>
                 )}
             </div>
-            <Outlet></Outlet>
+            <div className="p-12">
+                <Outlet></Outlet>
+            </div>
         </div>
     );
 }
