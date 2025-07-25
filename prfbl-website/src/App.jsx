@@ -12,12 +12,15 @@ import CreatePage from "./api/CmsRoutes/CreatePage";
 import GetPage from "./api/CmsRoutes/GetPage";
 import HandleDeleteSection from "./api/CmsRoutes/HandleDeleteSection";
 import UpdateSection from "./api/CmsRoutes/UpdateSection";
+import Login from "./pages/Login";
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<Home></Home>}></Route>
+            <Route path="/admin-login" element={<Login></Login>}></Route>
             <Route path="/admin/" element={<Admin></Admin>}>
+
                 <Route
                     path="blog-routes/get-all-blogs"
                     element={<GetAllBlogs />}

@@ -48,13 +48,18 @@ function AddSection() {
         formData.content.forEach((item) => {
             if (item.key) contentObject[item.key] = item.value;
         });
-
+        const accessToken = localStorage.getItem("accessToken");
         const res = await axios.post(
             `http://localhost:3000/pages/${formData.slug}/sections`,
             {
                 type: formData.type,
                 order: Number(formData.order),
                 content: contentObject,
+            },
+            {
+                headers: {
+                    "authorization": `Bearer ${accessToken}`
+                }
             }
         );
         setResponse(res.data);

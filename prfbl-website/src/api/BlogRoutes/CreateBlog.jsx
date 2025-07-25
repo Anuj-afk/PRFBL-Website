@@ -28,11 +28,11 @@ function BlogForm() {
         if (formData.coverImage) {
             form.append("coverImage", formData.coverImage);
         }
-
+        const accessToken = localStorage.getItem("accessToken");
         try {
             setLoading(true);
             const res = await axios.post("http://localhost:3000/api/blogs", form, {
-                headers: { "Content-Type": "multipart/form-data" },
+                headers: { "Content-Type": "multipart/form-data", "authorization": `Bearer ${accessToken}` },
             });
             setResponse(res.data);
         } catch (err) {

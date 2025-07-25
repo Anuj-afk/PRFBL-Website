@@ -8,7 +8,12 @@ function DeleteBlog() {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/api/blogs/${id}`);
+            const accessToken = localStorage.getItem("accessToken");
+            await axios.delete(`http://localhost:3000/api/blogs/${id}`, {
+                headers: {
+                    "authorization": `Bearer ${accessToken}`
+                }
+            });
             setResult("Deleted successfully");
         } catch (err) {
             setResult("Error deleting");

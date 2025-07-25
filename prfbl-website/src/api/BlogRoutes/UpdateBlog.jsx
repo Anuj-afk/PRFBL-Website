@@ -16,8 +16,9 @@ function UpdateBlog() {
         if (coverImage) formData.append("coverImage", coverImage);
 
         try {
+            const accessToken = localStorage.getItem("accessToken");
             const res = await axios.put(`http://localhost:3000/api/blogs/${id}`, formData, {
-                headers: { "Content-Type": "multipart/form-data" },
+                headers: { "Content-Type": "multipart/form-data", "authorization": `Bearer ${accessToken}` },
             });
             setResult(res.data);
         } catch (err) {

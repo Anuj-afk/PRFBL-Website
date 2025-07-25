@@ -17,6 +17,11 @@ function CreatePage() {
         const res = await axios.post("http://localhost:3000/pages", {
             name: formData.name,
             slug: formData.slug,
+        }
+        , {
+            headers: {
+                "authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
         });
         setResponse(res.data);
     };

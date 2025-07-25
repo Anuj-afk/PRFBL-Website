@@ -11,8 +11,11 @@ function GetPage() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     const handleGetPage = async () => {
+        const accessToken = localStorage.getItem("accessToken");
         const res = await axios.get(
-            `http://localhost:3000/pages/${formData.slug}`
+            `http://localhost:3000/pages/${formData.slug}`, {
+            headers: {"authorization": `Bearer ${accessToken}`}
+            }
         );
         setResponse(res.data);
     };
