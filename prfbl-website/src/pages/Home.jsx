@@ -9,8 +9,9 @@ import CompanySection from "../componets/CompanySection";
 import Logo from "../assets/WhiteLogo.png";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import Loader from "../componets/Ui/Loader";
+import { Navigate } from "react-router-dom";
 
 let slides = [];
 let services = [];
@@ -19,6 +20,7 @@ let projects = [];
 function Home() {
     const [index, setIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     const getContent = async () => {
         setLoading(true);
         await axios
@@ -315,8 +317,8 @@ function Home() {
                             </span>
                         </div>
                     </section>
-                    <div className="w-20 h-8 bg-[#FFA733] right-0 top-1/2 fixed z-20 flex items-center justify-start p-2 cursor-pointer hover:w-32 duration-200">
-                        <span className="text-white font-medium">Enquiry</span>
+                    <div className="w-20 h-8 bg-[#FFA733] right-0 top-1/2 fixed z-20 flex items-center justify-start p-2 cursor-pointer hover:w-32 duration-200" onClick={() => navigate("/admin-login")}>
+                        <span className="text-white font-medium" >Enquiry</span>
                     </div>
                 </>
             )}
