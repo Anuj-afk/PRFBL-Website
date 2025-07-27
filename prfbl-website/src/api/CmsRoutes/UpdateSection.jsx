@@ -15,7 +15,7 @@ function UpdateSection() {
 
     const handleUpdateSection = async () => {
         const res = await axios.put(
-            `http://localhost:3000/sections/${formData.sectionId}`,
+            `https://prfbl-website.onrender.com/sections/${formData.sectionId}`,
             {
                 type: formData.type,
                 order: Number(formData.order),

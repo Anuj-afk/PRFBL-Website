@@ -13,7 +13,7 @@ function GetPage() {
     const handleGetPage = async () => {
         const accessToken = localStorage.getItem("accessToken");
         const res = await axios.get(
-            `http://localhost:3000/pages/${formData.slug}`, {
+            `https://prfbl-website.onrender.com/pages/${formData.slug}`, {
             headers: {"authorization": `Bearer ${accessToken}`}
             }
         );

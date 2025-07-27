@@ -6,7 +6,7 @@ function GetAllBlogs() {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/blogs")
+        axios.get("https://prfbl-website.onrender.com/api/blogs")
             .then(res => setBlogs(res.data))
             .catch(err => console.error(err));
     }, []);

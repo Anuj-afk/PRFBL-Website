@@ -9,7 +9,7 @@ function DeleteBlog() {
     const handleDelete = async () => {
         try {
             const accessToken = localStorage.getItem("accessToken");
-            await axios.delete(`http://localhost:3000/api/blogs/${id}`, {
+            await axios.delete(`https://prfbl-website.onrender.com/api/blogs/${id}`, {
                 headers: {
                     "authorization": `Bearer ${accessToken}`
                 }

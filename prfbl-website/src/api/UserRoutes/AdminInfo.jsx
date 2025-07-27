@@ -13,7 +13,7 @@ function AdminInfo() {
     const fetchAdmin = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:3000/admin/${username}`,
+                `https://prfbl-website.onrender.com/admin/${username}`,
                 {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem(

@@ -31,7 +31,7 @@ function BlogForm() {
         const accessToken = localStorage.getItem("accessToken");
         try {
             setLoading(true);
-            const res = await axios.post("http://localhost:3000/api/blogs", form, {
+            const res = await axios.post("https://prfbl-website.onrender.com/api/blogs", form, {
                 headers: { "Content-Type": "multipart/form-data", "authorization": `Bearer ${accessToken}` },
             });
             setResponse(res.data);

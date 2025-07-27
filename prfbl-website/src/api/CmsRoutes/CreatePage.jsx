@@ -14,7 +14,7 @@ function CreatePage() {
         };
 
     const handleCreatePage = async () => {
-        const res = await axios.post("http://localhost:3000/pages", {
+        const res = await axios.post("https://prfbl-website.onrender.com/pages", {
             name: formData.name,
             slug: formData.slug,
         }

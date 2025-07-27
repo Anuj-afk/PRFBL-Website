@@ -50,7 +50,7 @@ function AddSection() {
         });
         const accessToken = localStorage.getItem("accessToken");
         const res = await axios.post(
-            `http://localhost:3000/pages/${formData.slug}/sections`,
+            `https://prfbl-website.onrender.com/pages/${formData.slug}/sections`,
             {
                 type: formData.type,
                 order: Number(formData.order),

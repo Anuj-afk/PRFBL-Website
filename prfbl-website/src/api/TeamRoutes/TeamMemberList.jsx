@@ -8,7 +8,7 @@ function TeamMemberList() {
 
     const fetchMembers = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/team");
+            const res = await axios.get("https://prfbl-website.onrender.com/team");
             setMembers(res.data);
         } catch (err) {
             console.error("Fetch failed:", err.response?.data || err.message);
@@ -21,7 +21,7 @@ function TeamMemberList() {
 
     const deleteMember = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/team/${id}`, {
+            await axios.delete(`https://prfbl-website.onrender.com/team/${id}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem(
                         "accessToken"
@@ -53,7 +53,7 @@ function TeamMemberList() {
                     >
                         {member.image && (
                             <img
-                                src={`http://localhost:3000${member.image}`}
+                                src={`https://prfbl-website.onrender.com${member.image}`}
                                 alt="Team"
                                 className="w-24 h-24 object-cover rounded mb-2"
                             />

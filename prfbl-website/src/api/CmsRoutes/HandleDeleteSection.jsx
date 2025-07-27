@@ -13,7 +13,7 @@ function HandleDeleteSection() {
 
     const handleDeleteSection = async () => {
         const res = await axios.delete(
-            `http://localhost:3000/sections/${formData.sectionId}`
+            `https://prfbl-website.onrender.com/sections/${formData.sectionId}`
         );
         setResponse(res.data);
     };

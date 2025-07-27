@@ -41,8 +41,8 @@ function TeamMemberForm({ editMember, onSuccess }) {
 
         try {
             const url = editMember
-                ? `http://localhost:3000/team/${editMember._id}`
-                : "http://localhost:3000/team";
+                ? `https://prfbl-website.onrender.com/team/${editMember._id}`
+                : "https://prfbl-website.onrender.com/team";
             const method = editMember ? axios.put : axios.post;
             await method(url, data, config);
             setFormData({

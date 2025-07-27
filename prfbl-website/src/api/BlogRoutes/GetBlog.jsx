@@ -8,7 +8,7 @@ function GetBlogById() {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/api/blogs/${id}`);
+            const res = await axios.get(`https://prfbl-website.onrender.com/api/blogs/${id}`);
             setBlog(res.data);
         } catch (err) {
             setBlog({ error: "Not Found" });

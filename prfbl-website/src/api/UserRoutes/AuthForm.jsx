@@ -16,8 +16,8 @@ function AuthForm({ isAdmin = false }) {
 
     const handleSubmit = async () => {
         const url = isRegister
-            ? `http://localhost:3000/${isAdmin ? "admin" : "register"}`
-            : `http://localhost:3000/${isAdmin ? "adminLogin" : "login"}`;
+            ? `https://prfbl-website.onrender.com/${isAdmin ? "admin" : "register"}`
+            : `https://prfbl-website.onrender.com/${isAdmin ? "adminLogin" : "login"}`;
 
         try {
             const res = await axios.post(url, formData, {
