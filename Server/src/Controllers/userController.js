@@ -99,8 +99,8 @@ export const registerAdmin = async (req, res) => {
 }
 
 export const adminInfo = async (req, res) => {
-    let id = req.Id
-    let admin = await Admin.findOne({"_id": id})
+    let username = req.params.username
+    let admin = await Admin.findOne({"personal_info.username": username})
     return res.status(200).json(formatDataToSendAdmin(admin))
 }
 

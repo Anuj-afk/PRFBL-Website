@@ -41,20 +41,15 @@ const routesData = [
         name: "Team Routes",
         methods: [
             { method: "POST", label: "Add Team Member" },
-            { method: "GET", label: "Get All Members" },
-            { method: "GET", label: "Get Member By ID" },
-            { method: "PUT", label: "Update Member" },
-            { method: "DELETE", label: "Remove Member" },
+            { method: "", label: "Team Member List" },
         ],
     },
     {
         name: "User Routes",
         methods: [
             { method: "POST", label: "Register User" },
-            { method: "POST", label: "Login User" },
-            { method: "POST", label: "Reset Password" },
-            { method: "POST", label: "Update Profile" },
-            { method: "GET", label: "Get Current User" },
+            { method: "POST", label: "Register Admin" },
+            {method: "GET", label: "admin-info" },
         ],
     },
 ];
