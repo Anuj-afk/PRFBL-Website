@@ -19,6 +19,7 @@ import TeamMemberForm from "./api/TeamRoutes/TeamMemberForm";
 import TeamMemberList from "./api/TeamRoutes/TeamMemberList";
 import AuthForm from "./api/UserRoutes/AuthForm";
 import AdminInfo from "./api/UserRoutes/AdminInfo";
+import Pages from "./api/Pages";
 
 function App() {
     return (
@@ -44,7 +45,7 @@ function App() {
                     element={<DeleteBlog />}
                 />
                 <Route path="cms-routes/add-section" element={<AddSection />} />
-                <Route path="cms-routes/create-page" element={<CreatePage />} />
+                <Route path="cms-routes/page" element={<Pages />} />
                 <Route path="cms-routes/get-page" element={<GetPage />} />
                 <Route
                     path="cms-routes/delete-section"

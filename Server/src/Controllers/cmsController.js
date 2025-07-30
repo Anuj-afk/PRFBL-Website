@@ -24,6 +24,16 @@ export const getPage = async (req, res) => {
     }
 };
 
+export const getAllPages = async (req, res) => {
+    try {
+        const pages = await Page.find().populate("sections").exec();
+        res.json(pages);
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
 // Add a section to a page
 export const addSectionToPage = async (req, res) => {
     try {
