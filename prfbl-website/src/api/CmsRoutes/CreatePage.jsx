@@ -2,27 +2,33 @@ import axios from "axios";
 import React, { useState } from "react";
 
 function CreatePage() {
+    const [response, setResponse] = useState(null);
+    const [formData, setFormData] = useState({
+        name: "",
+        slug: "",
+        URL: "",
+    });
 
-        const [response, setResponse] = useState(null);
-        const [formData, setFormData] = useState({
-            name: "",
-            slug: "",
-        });
-    
-        const handleChange = (e) => {
-            setFormData({ ...formData, [e.target.name]: e.target.value });
-        };
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const handleCreatePage = async () => {
-        const res = await axios.post("https://prfbl-website.onrender.com/pages", {
-            name: formData.name,
-            slug: formData.slug,
-        }
-        , {
-            headers: {
-                "authorization": `Bearer ${localStorage.getItem("accessToken")}`
+        const res = await axios.post(
+            import.meta.env.VITE_SERVER_DOMAIN + "/pages",    
+            {
+                name: formData.name,
+                slug: formData.slug,
+                URL: formData.URL,
+            },
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
             }
-        });
+        );
         setResponse(res.data);
     };
 
@@ -41,6 +47,12 @@ function CreatePage() {
                     name="slug"
                     onChange={handleChange}
                     placeholder="Page Slug"
+                    className="border p-2"
+                />
+                <input
+                    name="URL"
+                    onChange={handleChange}
+                    placeholder="Page URL"
                     className="border p-2"
                 />
             </div>

@@ -20,8 +20,12 @@ import TeamMemberList from "./api/TeamRoutes/TeamMemberList";
 import AuthForm from "./api/UserRoutes/AuthForm";
 import AdminInfo from "./api/UserRoutes/AdminInfo";
 import Pages from "./api/Pages";
+import EditPage from "./api/EditPage";
+import Section from "./api/Section";
+import EditSection from "./api/EditSection";
 
 function App() {
+
     return (
         <Routes>
             <Route path="/" element={<Home></Home>}></Route>
@@ -46,7 +50,12 @@ function App() {
                 />
                 <Route path="cms-routes/add-section" element={<AddSection />} />
                 <Route path="cms-routes/page" element={<Pages />} />
+                <Route path="cms-routes/page/edit/*" element={<EditPage></EditPage>} />
                 <Route path="cms-routes/get-page" element={<GetPage />} />
+                <Route path="cms-routes/page/add" element={<CreatePage />} />
+                <Route path="cms-routes/section" element={<Section />} />
+                <Route path="cms-routes/section/edit/*" element={<EditSection></EditSection>} />
+                <Route path="cms-routes/section/add" element={<AddSection />} />
                 <Route
                     path="cms-routes/delete-section"
                     element={<HandleDeleteSection />}

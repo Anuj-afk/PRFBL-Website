@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-function Pages() {
+function Section() {
     const [loading, setLoading] = useState(true);
-    const [pages, setPages] = useState([]);
+    const [sections, setSections] = useState([]);
     const navig = useNavigate();
 
-    const getPages = async () => {
+    const getSections = async () => {
         await axios
-            .get(import.meta.env.VITE_SERVER_DOMAIN + "/pages", {
+            .get(import.meta.env.VITE_SERVER_DOMAIN + "/sections", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem(
                         "accessToken"
@@ -25,8 +25,8 @@ function Pages() {
                 },
             })
             .then((response) => {
-                console.log("Pages fetched successfully:", response.data);
-                setPages(response.data);
+                console.log("Sections fetched successfully:", response.data);
+                setSections(response.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -34,10 +34,11 @@ function Pages() {
             });
     };
 
-    const setActivate = async (slug, activate) => {
+
+    const setActivate = async (sectionId, activate) => {
         await axios
             .put(
-                import.meta.env.VITE_SERVER_DOMAIN + `/pages/${slug}`,
+                import.meta.env.VITE_SERVER_DOMAIN + `/sections/${sectionId}`,
                 {
                     activated: activate,
                 },
@@ -50,18 +51,18 @@ function Pages() {
                 }
             )
             .then((response) => {
-                console.log("page updated successfully:", response.data);
-                getPages(); // Refresh the page data after update
+                console.log("Section updated successfully:", response.data);
+                getSections(); // Refresh the page data after update
             })
             .catch((error) => {
-                console.error("Error updating page:", error);
+                console.error("Error updating section:", error);
             });
     };
 
-    const setDelete = async (slug) => {
+    const setDelete = async (sectionId) => {
         await axios
             .delete(
-                import.meta.env.VITE_SERVER_DOMAIN + `/pages/${slug}`,
+                import.meta.env.VITE_SERVER_DOMAIN + `/sections/${sectionId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem(
@@ -71,16 +72,16 @@ function Pages() {
                 }
             )
             .then((response) => {
-                console.log("page deleted successfully:", response.data);
-                getPages(); // Refresh the page data after deletion
+                console.log("Section deleted successfully:", response.data);
+                getSections(); // Refresh the page data after deletion
             })
             .catch((error) => {
-                console.error("Error deleting page:", error);
+                console.error("Error deleting section:", error);
             });
     };
 
     useEffect(() => {
-        getPages();
+        getSections();
     }, []);
 
     return (
@@ -91,23 +92,28 @@ function Pages() {
                 <>
                     <div className=" p-6 flex flex-col gap-4 border mt-6 rounded">
                         <h1 className="text-2xl font-bold mb-4 border-b pb-4">
-                            Pages
+                            Sections
                         </h1>
                         <div className="flex flex-col gap-4">
-                            {pages.length > 0 ? (
-                                pages.map((page) => (
+                            {sections.length > 0 ? (
+                                sections.map((section) => (
                                     <div
-                                        key={page._id}
+                                        key={section._id}
                                         className="border-b pb-2 flex justify-between items-center"
                                     >
-                                        <span className="">{page.name}</span>
+                                        <span className="w-full">
+                                            {section.type}
+                                        </span>
+                                        <span className="w-full">
+                                            {section.page.name}
+                                        </span>
                                         <div className="flex gap-2 w-full items-center justify-end">
                                             <PencilRuler
                                                 size={18}
                                                 className="hover:text-blue-500"
                                                 onClick={() => {
                                                     navig(
-                                                        `/admin/cms-routes/page/edit/${page.slug}`
+                                                        `/admin/cms-routes/section/edit/${section._id}`
                                                     );
                                                 }}
                                             />
@@ -115,29 +121,35 @@ function Pages() {
                                                 size={18}
                                                 className="hover:text-red-500"
                                                 onClick={() =>
-                                                    setDelete(page.slug)
+                                                    setDelete(section._id)
                                                 }
                                             />
                                             <CircleCheck
                                                 size={18}
                                                 className={`hover:text-red-500 ${
-                                                    page.activated
+                                                    section.activated
                                                         ? ""
                                                         : " hidden "
                                                 } text-green-500`}
                                                 onClick={() =>
-                                                    setActivate(page.slug, false)
+                                                    setActivate(
+                                                        section._id,
+                                                        false
+                                                    )
                                                 }
                                             />
                                             <CircleX
                                                 size={18}
                                                 className={`hover:text-green-500 ${
-                                                    page.activated
+                                                    section.activated
                                                         ? " hidden "
                                                         : ""
                                                 } text-red-500`}
                                                 onClick={() =>
-                                                    setActivate(page.slug, true)
+                                                    setActivate(
+                                                        section._id,
+                                                        true
+                                                    )
                                                 }
                                             />
                                         </div>
@@ -151,7 +163,7 @@ function Pages() {
                             <CirclePlus
                                 className="text-blue-500 hover:text-blue-600"
                                 onClick={() => {
-                                    navig("/admin/cms-routes/page/add");
+                                    navig("/admin/cms-routes/section/add");
                                 }}
                             ></CirclePlus>
                         </div>
@@ -162,4 +174,4 @@ function Pages() {
     );
 }
 
-export default Pages;
+export default Section;
