@@ -104,4 +104,26 @@ export const adminInfo = async (req, res) => {
     return res.status(200).json(formatDataToSendAdmin(admin))
 }
 
+export const getAllAdmins = async (req, res) => {
+    try {
+        const admins = await Admin.find();
+        res.status(200).json(admins.map(admin => formatDataToSendAdmin(admin)));
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const deleteAdmin = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const admin = await Admin.findByIdAndDelete(id);
+        if (!admin) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 // RDCjMAP6bPcR8JRg

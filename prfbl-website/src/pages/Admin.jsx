@@ -21,6 +21,36 @@ function Admin() {
                     >
                         Section
                     </Link>
+                    <Link
+                        className=" mt-4 hover:text-blue-400 before:w-2 before:h-2 before:bg-blue-600 before:left-4 before:rounded-full before:content-[''] before:translate-y-2 before:absolute pl-8 border-b w-full h-fit pb-3 border-dashed border-black hover:underline"
+                        to="/admin/blog"
+                    >
+                        Blog
+                    </Link>
+                    <Link
+                        className=" mt-4 hover:text-blue-400 before:w-2 before:h-2 before:bg-blue-600 before:left-4 before:rounded-full before:content-[''] before:translate-y-2 before:absolute pl-8 border-b w-full h-fit pb-3 border-dashed border-black hover:underline"
+                        to="contact-routes/submit-contact-form"
+                    >
+                        Contact (example to check for form submission)
+                    </Link>
+                    <Link
+                        className=" mt-4 hover:text-blue-400 before:w-2 before:h-2 before:bg-blue-600 before:left-4 before:rounded-full before:content-[''] before:translate-y-2 before:absolute pl-8 border-b w-full h-fit pb-3 border-dashed border-black hover:underline"
+                        to="contact-routes/get-all-forms"
+                    >
+                        Contact Admin View
+                    </Link>
+                    <Link
+                        className=" mt-4 hover:text-blue-400 before:w-2 before:h-2 before:bg-blue-600 before:left-4 before:rounded-full before:content-[''] before:translate-y-2 before:absolute pl-8 border-b w-full h-fit pb-3 border-dashed border-black hover:underline"
+                        to="team"
+                    >
+                        Team Members
+                    </Link>
+                    <Link
+                        className=" mt-4 hover:text-blue-400 before:w-2 before:h-2 before:bg-blue-600 before:left-4 before:rounded-full before:content-[''] before:translate-y-2 before:absolute pl-8 border-b w-full h-fit pb-3 border-dashed border-black hover:underline"
+                        to="admin"
+                    >
+                        Admins
+                    </Link>
                 </div>
             </div>
             <div className="flex-1 p-4 bg-white overflow-y-auto">

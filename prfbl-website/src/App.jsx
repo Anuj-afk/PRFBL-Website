@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
@@ -23,8 +23,25 @@ import Pages from "./api/Pages";
 import EditPage from "./api/EditPage";
 import Section from "./api/Section";
 import EditSection from "./api/EditSection";
+import BlogCMS from "./api/Blog";
+import axios from "axios";
+import TeamTree from "./componets/TeamTree";
+import TeamPage from "./pages/TeamPage";
+import AdminList from "./api/AdminList";
 
 function App() {
+    const [team, setTeam] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`${import.meta.env.VITE_SERVER_DOMAIN}/api/team`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+            })
+            .then((res) => setTeam(res.data))
+            .catch((err) => console.error(err));
+    }, []);
 
     return (
         <Routes>
@@ -50,12 +67,21 @@ function App() {
                 />
                 <Route path="cms-routes/add-section" element={<AddSection />} />
                 <Route path="cms-routes/page" element={<Pages />} />
-                <Route path="cms-routes/page/edit/*" element={<EditPage></EditPage>} />
+                <Route
+                    path="cms-routes/page/edit/*"
+                    element={<EditPage></EditPage>}
+                />
                 <Route path="cms-routes/get-page" element={<GetPage />} />
                 <Route path="cms-routes/page/add" element={<CreatePage />} />
                 <Route path="cms-routes/section" element={<Section />} />
-                <Route path="cms-routes/section/edit/*" element={<EditSection></EditSection>} />
+                <Route
+                    path="cms-routes/section/edit/:slug/:sectionId"
+                    element={<EditSection></EditSection>}
+                />
                 <Route path="cms-routes/section/add" element={<AddSection />} />
+                <Route path="blog" element={<BlogCMS></BlogCMS>} />
+                <Route path="team" element={<TeamPage team={team} />} />
+                <Route path="admin" element={<AdminList></AdminList>} ></Route>
                 <Route
                     path="cms-routes/delete-section"
                     element={<HandleDeleteSection />}
@@ -80,10 +106,18 @@ function App() {
                     path="team-routes/team-member-list"
                     element={<TeamMemberList></TeamMemberList>}
                 ></Route>
-                <Route path="user-routes/register-user" element={<AuthForm></AuthForm>}></Route>
-                <Route path="user-routes/register-admin" element={<AuthForm isAdmin={true}></AuthForm>}></Route>
-                <Route path="user-routes/admin-info" element={<AdminInfo></AdminInfo>}></Route>
-                
+                <Route
+                    path="user-routes/register-user"
+                    element={<AuthForm></AuthForm>}
+                ></Route>
+                <Route
+                    path="user-routes/register-admin"
+                    element={<AuthForm isAdmin={true}></AuthForm>}
+                ></Route>
+                <Route
+                    path="user-routes/admin-info"
+                    element={<AdminInfo></AdminInfo>}
+                ></Route>
             </Route>
         </Routes>
     );

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     $createParagraphNode,
     $createTextNode,
     $getRoot,
-    $getSelection,
-    $isRangeSelection,
     FORMAT_TEXT_COMMAND,
     FORMAT_ELEMENT_COMMAND,
 } from "lexical";
@@ -30,17 +28,34 @@ import {
     Type,
 } from "lucide-react";
 
-// Toolbar Component
-function ToolbarPlugin() {
+// 🔌 LoadEditorStatePlugin - Safely loads saved state
+function LoadEditorStatePlugin({ serializedEditorState }) {
     const [editor] = useLexicalComposerContext();
 
-    const formatText = (format) => {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
-    };
+    useEffect(() => {
+        if (!serializedEditorState) return;
+        try {
+            const jsonString =
+                typeof serializedEditorState === "string"
+                    ? serializedEditorState
+                    : JSON.stringify(serializedEditorState);
+            const parsedState = editor.parseEditorState(jsonString);
+            editor.setEditorState(parsedState);
+        } catch (err) {
+            console.error("Error parsing editor state:", err);
+        }
+    }, [editor, serializedEditorState]);
 
-    const formatElement = (format) => {
+    return null;
+}
+
+// 🛠 Toolbar
+function ToolbarPlugin() {
+    const [editor] = useLexicalComposerContext();
+    const formatText = (format) =>
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
+    const formatElement = (format) =>
         editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, format);
-    };
 
     return (
         <div className="flex flex-wrap gap-2 p-3 border-b border-gray-200 bg-gray-50">
@@ -48,47 +63,39 @@ function ToolbarPlugin() {
                 <button
                     onClick={() => formatText("bold")}
                     className="p-2 rounded hover:bg-gray-200"
-                    title="Bold"
                 >
                     <Bold size={16} />
                 </button>
                 <button
                     onClick={() => formatText("italic")}
                     className="p-2 rounded hover:bg-gray-200"
-                    title="Italic"
                 >
                     <Italic size={16} />
                 </button>
                 <button
                     onClick={() => formatText("underline")}
                     className="p-2 rounded hover:bg-gray-200"
-                    title="Underline"
                 >
                     <Underline size={16} />
                 </button>
             </div>
-
             <div className="w-px h-8 bg-gray-300"></div>
-
             <div className="flex gap-1">
                 <button
                     onClick={() => formatElement("left")}
                     className="p-2 rounded hover:bg-gray-200"
-                    title="Align Left"
                 >
                     <AlignLeft size={16} />
                 </button>
                 <button
                     onClick={() => formatElement("center")}
                     className="p-2 rounded hover:bg-gray-200"
-                    title="Align Center"
                 >
                     <AlignCenter size={16} />
                 </button>
                 <button
                     onClick={() => formatElement("right")}
                     className="p-2 rounded hover:bg-gray-200"
-                    title="Align Right"
                 >
                     <AlignRight size={16} />
                 </button>
@@ -97,34 +104,28 @@ function ToolbarPlugin() {
     );
 }
 
-// HTML Import Plugin
+// 🛠 HTML Import
 function HtmlImportPlugin({ htmlInput, setHtmlInput, onImport }) {
     const [editor] = useLexicalComposerContext();
 
     const handleImport = () => {
         if (!htmlInput.trim()) return;
-
         editor.update(() => {
             try {
                 const parser = new DOMParser();
                 const dom = parser.parseFromString(htmlInput, "text/html");
                 const nodes = $generateNodesFromDOM(editor, dom);
-
                 const root = $getRoot();
                 root.clear();
                 root.append(...nodes);
-            } catch (error) {
-                console.error("Error importing HTML:", error);
-                // Fallback: create a simple paragraph with the text content
+            } catch {
                 const root = $getRoot();
                 root.clear();
                 const paragraph = $createParagraphNode();
-                const textNode = $createTextNode(htmlInput);
-                paragraph.append(textNode);
+                paragraph.append($createTextNode(htmlInput));
                 root.append(paragraph);
             }
         });
-
         onImport();
     };
 
@@ -151,17 +152,16 @@ function HtmlImportPlugin({ htmlInput, setHtmlInput, onImport }) {
     );
 }
 
-// HTML Export Plugin
+// 🛠 HTML Export
 function HtmlExportPlugin({ onExport }) {
     const [editor] = useLexicalComposerContext();
 
     const handleExport = () => {
         editor.getEditorState().read(() => {
             try {
-                const htmlString = $generateHtmlFromNodes(editor, null);
-                onExport(htmlString);
-            } catch (error) {
-                console.error("Error exporting HTML:", error);
+                const html = $generateHtmlFromNodes(editor, null);
+                onExport(html);
+            } catch {
                 onExport("<p></p>");
             }
         });
@@ -181,7 +181,7 @@ function HtmlExportPlugin({ onExport }) {
     );
 }
 
-// Main Editor Component
+// 📝 Main Editor
 export default function MyEditor({ initialData, onSave }) {
     const [htmlOutput, setHtmlOutput] = useState("");
     const [htmlInput, setHtmlInput] = useState("");
@@ -201,7 +201,6 @@ export default function MyEditor({ initialData, onSave }) {
             },
             paragraph: "mb-2",
         },
-        editorState: initialData?.editorState || null,
         onError(error) {
             console.error("Lexical Error:", error);
         },
@@ -209,30 +208,19 @@ export default function MyEditor({ initialData, onSave }) {
 
     const onChange = (editorState, editor) => {
         setEditorState(editorState.toJSON());
-
         editorState.read(() => {
-            try {
-                const htmlString = $generateHtmlFromNodes(editor, null);
-                setHtmlOutput(htmlString);
-
-                // Extract plain text for search indexing
-                const root = $getRoot();
-                const textContent = root.getTextContent();
-                setPlainText(textContent);
-            } catch (error) {
-                console.error("Error generating HTML:", error);
-                setHtmlOutput("<p></p>");
-            }
+            const html = $generateHtmlFromNodes(editor, null);
+            setHtmlOutput(html);
+            setPlainText($getRoot().getTextContent());
         });
     };
 
-    // Save function to pass data back to parent component
     const handleSave = () => {
         if (onSave) {
             onSave({
-                editorState: editorState,
+                editorState,
                 htmlContent: htmlOutput,
-                plainText: plainText,
+                plainText,
             });
         }
     };
@@ -241,12 +229,8 @@ export default function MyEditor({ initialData, onSave }) {
         setHtmlOutput(html);
         navigator.clipboard
             .writeText(html)
-            .then(() => {
-                alert("HTML copied to clipboard!");
-            })
-            .catch(() => {
-                console.log("Failed to copy to clipboard");
-            });
+            .then(() => alert("HTML copied to clipboard!"))
+            .catch(() => console.log("Failed to copy to clipboard"));
     };
 
     const handleImport = () => {
@@ -256,8 +240,7 @@ export default function MyEditor({ initialData, onSave }) {
 
     return (
         <div className="max-w-7xl mx-auto p-6 bg-white">
-
-            {/* Tab Navigation */}
+            {/* Tabs */}
             <div className="flex border-b border-gray-200 mb-6">
                 <button
                     onClick={() => setActiveTab("editor")}
@@ -289,6 +272,11 @@ export default function MyEditor({ initialData, onSave }) {
                     {activeTab === "editor" && (
                         <div className="border border-gray-300 rounded-lg overflow-hidden">
                             <LexicalComposer initialConfig={initialConfig}>
+                                <LoadEditorStatePlugin
+                                    serializedEditorState={
+                                        initialData?.editorState
+                                    }
+                                />
                                 <ToolbarPlugin />
                                 <div className="relative">
                                     <RichTextPlugin
@@ -321,7 +309,6 @@ export default function MyEditor({ initialData, onSave }) {
                             </LexicalComposer>
                         </div>
                     )}
-
                     {activeTab === "import" && (
                         <div className="border border-gray-300 rounded-lg p-4">
                             <LexicalComposer initialConfig={initialConfig}>
@@ -359,9 +346,8 @@ export default function MyEditor({ initialData, onSave }) {
                     )}
                 </div>
 
-                {/* Right Panel - Preview & Output */}
+                {/* Right Panel */}
                 <div className="space-y-4">
-                    {/* Preview Toggle */}
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">
                             Live Preview & HTML Output
@@ -378,8 +364,6 @@ export default function MyEditor({ initialData, onSave }) {
                             {showPreview ? "Hide Preview" : "Show Preview"}
                         </button>
                     </div>
-
-                    {/* Live Preview */}
                     {showPreview && (
                         <div className="border border-gray-300 rounded-lg">
                             <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 font-medium text-sm">
@@ -391,13 +375,10 @@ export default function MyEditor({ initialData, onSave }) {
                             />
                         </div>
                     )}
-
-                    {/* HTML Output */}
                     <div className="border border-gray-300 rounded-lg">
                         <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 font-medium text-sm flex items-center justify-between">
                             <span className="flex items-center gap-2">
-                                <Code size={16} />
-                                HTML Output
+                                <Code size={16} /> HTML Output
                             </span>
                             <button
                                 onClick={() =>

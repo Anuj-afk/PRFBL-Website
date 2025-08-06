@@ -9,7 +9,7 @@ function ContactAdminView() {
         const fetchContacts = async () => {
             try {
                 const res = await axios.get(
-                    "https://prfbl-website.onrender.com/api/contact",
+                    `${import.meta.env.VITE_SERVER_DOMAIN}/api/contact`,
                     {
                         headers: {
                             // Comment out if no auth required

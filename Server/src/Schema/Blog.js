@@ -5,6 +5,9 @@ const blogSchema = new mongoose.Schema({
     content: { type: String, required: true },
     coverImage: { type: String }, // URL or path
     createdAt: { type: Date, default: Date.now },
+    url: { type: String, required: true },
+    slug: { type: String, required: true, unique: true },
+
     author: { type: String },
 });
 

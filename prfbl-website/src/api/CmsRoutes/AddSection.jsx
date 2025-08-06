@@ -55,6 +55,26 @@ function AddSection() {
         if (file) reader.readAsDataURL(file);
     };
 
+    // New function to handle JSON validation
+    const handleJsonChange = (index, value) => {
+        const newContent = [...formData.content];
+        newContent[index] = { ...newContent[index], value: value };
+
+        // Validate JSON and set error state
+        try {
+            if (value.trim()) {
+                JSON.parse(value);
+                newContent[index].jsonError = null;
+            } else {
+                newContent[index].jsonError = null;
+            }
+        } catch (error) {
+            newContent[index].jsonError = error.message;
+        }
+
+        setFormData({ ...formData, content: newContent });
+    };
+
     // New function to handle editor content changes
     const handleEditorSave = (editorData) => {
         setFormData({
@@ -87,7 +107,25 @@ function AddSection() {
         // Convert content array to object
         const contentObject = {};
         formData.content.forEach((item) => {
-            if (item.key) contentObject[item.key] = item.value;
+            if (item.key) {
+                // Handle JSON type - parse the JSON string
+                if (item.type === "json") {
+                    try {
+                        contentObject[item.key] = JSON.parse(
+                            item.value || "{}"
+                        );
+                    } catch (error) {
+                        console.error(
+                            `Error parsing JSON for key "${item.key}":`,
+                            error
+                        );
+                        // Store as string if JSON is invalid
+                        contentObject[item.key] = item.value;
+                    }
+                } else {
+                    contentObject[item.key] = item.value;
+                }
+            }
         });
 
         // Prepare the payload with editor content
@@ -212,6 +250,7 @@ function AddSection() {
                             <option value="text">Text</option>
                             <option value="image">Image</option>
                             <option value="number">Number</option>
+                            <option value="json">JSON</option>
                         </select>
 
                         {item.type === "text" && (
@@ -252,6 +291,32 @@ function AddSection() {
                                 }
                                 className="border p-2"
                             />
+                        )}
+                        {item.type === "json" && (
+                            <div className="space-y-2">
+                                <textarea
+                                    placeholder='{"key": "value", "array": [1, 2, 3]}'
+                                    value={item.value || ""}
+                                    onChange={(e) =>
+                                        handleJsonChange(index, e.target.value)
+                                    }
+                                    className={`border p-2 resize-none font-mono text-sm h-20 ${
+                                        item.jsonError
+                                            ? "border-red-500 bg-red-50"
+                                            : "border-gray-300"
+                                    }`}
+                                />
+                                {item.jsonError && (
+                                    <p className="text-red-500 text-xs">
+                                        Invalid JSON: {item.jsonError}
+                                    </p>
+                                )}
+                                {item.value && !item.jsonError && (
+                                    <p className="text-green-500 text-xs">
+                                        ✅ Valid JSON
+                                    </p>
+                                )}
+                            </div>
                         )}
 
                         <button

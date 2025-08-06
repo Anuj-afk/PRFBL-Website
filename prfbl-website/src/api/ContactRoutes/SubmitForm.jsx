@@ -18,7 +18,7 @@ function ContactForm() {
     const handleSubmit = async () => {
         try {
             const res = await axios.post(
-                "https://prfbl-website.onrender.com/api/contact",
+                `${import.meta.env.VITE_SERVER_DOMAIN}/api/contact`,
                 formData
             );
             setResponse({ success: true, data: res.data });

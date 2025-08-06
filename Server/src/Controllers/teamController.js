@@ -3,15 +3,16 @@ import TeamMember from "../Schema/TeamMember.js";
 // Create team member
 export const createTeamMember = async (req, res) => {
     try {
-        const { role, department, juniorOf } = req.body;
+        const {admin, role, department, juniorOf } = req.body;
+        console.log(req.body)
         const image = req.file ? `/uploads/${req.file.filename}` : null;
 
         const newMember = await TeamMember.create({
-            admin: req.Id, // set in verifyAdmin middleware
+            admin,
             role,
             department,
             image,
-            juniorOf: juniorOf || null
+            juniorOf: juniorOf || null,
         });
 
         res.status(201).json(newMember);
@@ -50,7 +51,7 @@ export const updateTeamMember = async (req, res) => {
         const updatedData = {
             role,
             department,
-            juniorOf: juniorOf || null
+            juniorOf: juniorOf || null,
         };
         if (image) updatedData.image = image;
 
@@ -68,9 +69,24 @@ export const updateTeamMember = async (req, res) => {
 
 // Delete
 export const deleteTeamMember = async (req, res) => {
+    const memberId = req.params.id;
+
     try {
-        await TeamMember.findByIdAndDelete(req.params.id);
-        res.json({ message: "Team member removed" });
+        // Step 1: Delete the member
+        const deletedMember = await TeamMember.findByIdAndDelete(memberId);
+        if (!deletedMember) {
+            return res.status(404).json({ error: "Team member not found" });
+        }
+
+        // Step 2: Remove references from other members' `juniorOf`
+        await TeamMember.updateMany(
+            { juniorOf: memberId },
+            { $set: { juniorOf: null } }
+        );
+
+        res.json({
+            message: "Team member removed and juniorOf references cleared",
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

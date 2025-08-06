@@ -23,13 +23,13 @@ router.get("/pages/:slug", getPage);
 router.get("/pages",verifyAdmin, getAllPages);
 router.put("/pages/:slug", verifyAdmin, updatePage);
 router.post("/pages/:slug/sections", verifyAdmin, addSectionToPage);
-router.put("/sections/:id", verifyAdmin, updateSection);
+router.put("/sections/:id/:slug", verifyAdmin, updateSection);
 router.delete("/sections/:id", verifyAdmin, deleteSection);
 router.get("/sections", verifyAdmin, getAllSections);
 router.delete("/pages/:slug", verifyAdmin, deletePage);
 router.get("/sections/:id", verifyAdmin, getSection);
 router.get("/sections/:slug", verifyAdmin, getSectionByPage);
-router.post("/pages/:sectionId/:slug", verifyAdmin, removeSectionFromPage);
+router.delete("/pages/:sectionId/:slug", verifyAdmin, removeSectionFromPage);
 router.get("/page/sections/:slug", verifyAdmin, getSectionNotInPage);
 
 export default router;

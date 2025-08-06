@@ -113,7 +113,7 @@ function Section() {
                                                 className="hover:text-blue-500"
                                                 onClick={() => {
                                                     navig(
-                                                        `/admin/cms-routes/section/edit/${section._id}`
+                                                        `/admin/cms-routes/section/edit/${section.page.slug}/${section._id}`
                                                     );
                                                 }}
                                             />

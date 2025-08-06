@@ -39,10 +39,10 @@ function EditPage() {
             });
     };
 
-    const setActivate = async (sectionId, activate) => {
+    const setActivate = async (sectionId, activate, slug) => {
         await axios
             .put(
-                import.meta.env.VITE_SERVER_DOMAIN + `/sections/${sectionId}`,
+                import.meta.env.VITE_SERVER_DOMAIN + `/sections/${sectionId}/${slug}`,
                 {
                     activated: activate,
                 },
@@ -105,10 +105,10 @@ function EditPage() {
             });
     };
 
-    const changeOrder = async (sectionId, newOrder) => {
+    const changeOrder = async (sectionId, newOrder, slug) => {
         await axios
             .put(
-                import.meta.env.VITE_SERVER_DOMAIN + `/sections/${sectionId}`,
+                import.meta.env.VITE_SERVER_DOMAIN + `/sections/${sectionId}/${slug}`,
                 {
                     order: newOrder,
                 },
@@ -154,9 +154,6 @@ function EditPage() {
             });
     };
 
-    const handleAdd = (e) => {
-
-    }
 
     useEffect(() => {
         getPage();
@@ -249,12 +246,14 @@ function EditPage() {
                                                                         section.order -
                                                                             1
                                                                     ]._id,
-                                                                    section.order
+                                                                    section.order,
+                                                                    pages.slug
                                                                 );
                                                                 changeOrder(
                                                                     section._id,
                                                                     section.order -
                                                                         1
+                                                                    ,pages.slug
                                                                 );
                                                             }}
                                                         ></ArrowUp>
@@ -273,6 +272,7 @@ function EditPage() {
                                                                         .sections[
                                                                         section.order +
                                                                             1
+                                                                        ,pages.slug
                                                                     ]._id,
                                                                     section.order
                                                                 );
@@ -280,6 +280,7 @@ function EditPage() {
                                                                     section._id,
                                                                     section.order +
                                                                         1
+                                                                    ,pages.slug
                                                                 );
                                                             }}
                                                         ></ArrowDown>
@@ -292,7 +293,7 @@ function EditPage() {
                                                         className="hover:text-blue-500"
                                                         onClick={() => {
                                                             navig(
-                                                                `/admin/cms-routes/section/edit/${section._id}`
+                                                                `/admin/cms-routes/section/edit/${pages.slug}/${section._id}`
                                                             );
                                                         }}
                                                     />
@@ -315,7 +316,8 @@ function EditPage() {
                                                         onClick={() =>
                                                             setActivate(
                                                                 section._id,
-                                                                false
+                                                                false,
+                                                                pages.slug
                                                             )
                                                         }
                                                     />
@@ -329,7 +331,8 @@ function EditPage() {
                                                         onClick={() =>
                                                             setActivate(
                                                                 section._id,
-                                                                true
+                                                                true,
+                                                                pages.slug
                                                             )
                                                         }
                                                     />
@@ -346,7 +349,9 @@ function EditPage() {
                             <CirclePlus
                                 className="text-blue-500 hover:text-blue-600"
                                 onClick={() => {
-                                    handleAdd();
+                                    navig(
+                                        `/admin/cms-routes/section/add`
+                                    );
                                 }}
                             ></CirclePlus>
                         </div>

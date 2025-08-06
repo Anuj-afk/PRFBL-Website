@@ -4,7 +4,7 @@ import Section from "../Schema/sectionSchema.js";
 
 export const createPage = async (req, res) => {
     try {
-        const { name, slug, URL} = req.body;
+        const { name, slug, URL } = req.body;
         const page = await Page.create({ name, slug, URL });
         res.status(201).json(page);
     } catch (err) {
@@ -44,13 +44,12 @@ export const getAllPages = async (req, res) => {
     }
 };
 
-
-
 // Add a section to a page
 export const addSectionToPage = async (req, res) => {
     try {
         const { slug } = req.params;
-        const { type, order, content } = req.body;
+        const { type, order, content, editorState, htmlContent, plainText } =
+            req.body;
         const page = await Page.findOne({ slug });
         if (!page) {
             return res.status(404).json({ error: "Page not found" });
@@ -61,6 +60,9 @@ export const addSectionToPage = async (req, res) => {
             type,
             order,
             content,
+            editorState,
+            htmlContent,
+            plainText,
         });
         await Page.findByIdAndUpdate(page._id, {
             $push: { sections: section._id },
@@ -88,7 +90,7 @@ export const updatePage = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 // Update section
 export const updateSection = async (req, res) => {
@@ -126,20 +128,29 @@ export const getAllSections = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 export const deletePage = async (req, res) => {
     try {
         const { slug } = req.params;
-        const page = await Page.findOneAndDelete({ slug });
+        const page = await Page.findOne({ slug });
+
         if (!page) {
             return res.status(404).json({ error: "Page not found" });
         }
-        res.json({ message: "Page deleted successfully" });
+        if (page.sections && page.sections.length > 0) {
+            await Section.deleteMany({ _id: { $in: page.sections } });
+        }
+
+        await Page.deleteOne({ _id: page._id });
+
+        res.json({
+            message: "Page and its related sections deleted successfully",
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 export const getSection = async (req, res) => {
     try {
@@ -152,23 +163,29 @@ export const getSection = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 export const getSectionByPage = async (req, res) => {
     try {
         const { slug } = req.params;
-        const page = await Page.findOne({ slug }).populate("sections").exec();
+        const page = await Page.findOne({ slug }).populate("sections");
+
         if (!page) {
             return res.status(404).json({ error: "Page not found" });
         }
-        res.json(page.sections);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+
+        res.json({
+            success: true,
+            sections: page.sections.sort((a, b) => a.order - b.order),
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
 export const removeSectionFromPage = async (req, res) => {
     try {
         const { slug, sectionId } = req.params;
+        console.log("Removing section from page:", slug, sectionId);
         const page = await Page.findOne({ slug });
         if (!page) {
             return res.status(404).json({ error: "Page not found" });
@@ -195,4 +212,4 @@ export const getSectionNotInPage = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
