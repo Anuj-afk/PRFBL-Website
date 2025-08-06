@@ -3,17 +3,22 @@ import TeamMember from "../Schema/TeamMember.js";
 // Create team member
 export const createTeamMember = async (req, res) => {
     try {
-        const {admin, role, department, juniorOf } = req.body;
-        console.log(req.body)
+        const { name, role, department, juniorOf } = req.body;
         const image = req.file ? `/uploads/${req.file.filename}` : null;
 
         const newMember = await TeamMember.create({
-            admin,
+            admin: req.Id,
+            name,
             role,
             department,
             image,
             juniorOf: juniorOf || null,
         });
+        if (juniorOf) {
+            await TeamMember.findByIdAndUpdate(juniorOf, {
+                $addToSet: { seniorOf: newMember._id },
+            });
+        }
 
         res.status(201).json(newMember);
     } catch (err) {
@@ -45,10 +50,16 @@ export const getTeamMember = async (req, res) => {
 // Update
 export const updateTeamMember = async (req, res) => {
     try {
-        const { role, department, juniorOf } = req.body;
+        const { admin, role, department, juniorOf } = req.body;
         const image = req.file ? `/uploads/${req.file.filename}` : undefined;
 
+        const member = await TeamMember.findById(req.params.id);
+        if (!member) return res.status(404).json({ error: "Member not found" });
+
+        const oldJuniorOf = member.juniorOf;
+
         const updatedData = {
+            admin,
             role,
             department,
             juniorOf: juniorOf || null,
@@ -61,11 +72,24 @@ export const updateTeamMember = async (req, res) => {
             { new: true }
         );
 
+        if (oldJuniorOf && oldJuniorOf !== juniorOf) {
+            await TeamMember.findByIdAndUpdate(oldJuniorOf, {
+                $pull: { seniorOf: updated._id }
+            });
+        }
+
+        if (juniorOf && oldJuniorOf !== juniorOf) {
+            await TeamMember.findByIdAndUpdate(juniorOf, {
+                $addToSet: { seniorOf: updated._id }
+            });
+        }
+
         res.json(updated);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
+
 
 // Delete
 export const deleteTeamMember = async (req, res) => {

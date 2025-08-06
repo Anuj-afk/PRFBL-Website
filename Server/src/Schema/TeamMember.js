@@ -13,7 +13,8 @@ const teamMemberSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "TeamMember", // references another team member
         default: null
-    }
+    },
+    seniorOf: [{ type: mongoose.Schema.Types.ObjectId, ref: "TeamMember" }]
 });
 
 export default mongoose.model("TeamMember", teamMemberSchema);
