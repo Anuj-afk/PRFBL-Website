@@ -48,9 +48,9 @@ export const getAllPages = async (req, res) => {
 export const addSectionToPage = async (req, res) => {
     try {
         const { slug } = req.params;
-        const { type, order, content, editorState, htmlContent, plainText } =
-            req.body;
+        const { type, order, content, editorState, htmlContent, plainText, has_link } = req.body;
         const page = await Page.findOne({ slug });
+        
         if (!page) {
             return res.status(404).json({ error: "Page not found" });
         }
@@ -63,7 +63,9 @@ export const addSectionToPage = async (req, res) => {
             editorState,
             htmlContent,
             plainText,
+            has_link: has_link || false
         });
+
         await Page.findByIdAndUpdate(page._id, {
             $push: { sections: section._id },
         });
@@ -209,6 +211,104 @@ export const getSectionNotInPage = async (req, res) => {
         }
         const sections = await Section.find({ _id: { $nin: page.sections } });
         res.json(sections);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const getSectionHasLinks = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const section = await Section.findById(id);
+        
+        if (!section) {
+            return res.status(404).json({ error: "Section not found" });
+        }
+
+        res.json({
+            success: true,
+            has_link: section.has_link || false
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const addLinkToSection = async (req, res) => {
+    try {
+        const { sectionId } = req.params;
+        const { type, url, title } = req.body;
+
+        const section = await Section.findById(sectionId);
+        if (!section) {
+            return res.status(404).json({ error: "Section not found" });
+        }
+
+        // Check for duplicate links
+        const isDuplicate = section.links.some(link => 
+            link.url === url || link.title === title
+        );
+
+        if (isDuplicate) {
+            return res.status(400).json({ 
+                error: "This page is already linked to this section" 
+            });
+        }
+
+        // Add new link
+        section.links.push({ type, url, title });
+        await section.save();
+
+        res.status(201).json({
+            success: true,
+            links: section.links
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Add delete link function
+export const deleteLink = async (req, res) => {
+    try {
+        const { sectionId, linkId } = req.params;
+        
+        const section = await Section.findById(sectionId);
+        if (!section) {
+            return res.status(404).json({ error: "Section not found" });
+        }
+
+        section.links = section.links.filter(link => link._id.toString() !== linkId);
+        
+        // If no links remain, set has_link to false
+        if (section.links.length === 0) {
+            section.has_link = false;
+        }
+
+        await section.save();
+
+        res.json({
+            success: true,
+            links: section.links
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const getSectionLinks = async (req, res) => {
+    try {
+        const { sectionId } = req.params;
+        const section = await Section.findById(sectionId);
+        
+        if (!section) {
+            return res.status(404).json({ error: "Section not found" });
+        }
+
+        res.json({
+            success: true,
+            links: section.links || []
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

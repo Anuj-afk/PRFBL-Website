@@ -29,19 +29,19 @@ function Home() {
                 console.log(request);
                 for (let i = 0; i < request.data.sections.length; i++) {
                     if (
-                        request.data.sections[i].order == 0 &&
+                        request.data.sections[i].order == 1 &&
                         request.data.sections[i].type == "hero"
                     ) {
                         slides = request.data.sections[i].content.slides;
                     }
                     if (
-                        request.data.sections[i].order == 1 &&
+                        request.data.sections[i].order == 2 &&
                         request.data.sections[i].type == "services"
                     ) {
                         services = request.data.sections[i].content.items;
                     }
                     if (
-                        request.data.sections[i].order == 2 &&
+                        request.data.sections[i].order == 3 &&
                         request.data.sections[i].type == "project"
                     ) {
                         projects = request.data.sections[i].content.images;

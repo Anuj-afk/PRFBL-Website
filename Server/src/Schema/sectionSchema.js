@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const sectionSchema = mongoose.Schema(
+const sectionSchema = new mongoose.Schema(
     {
         page: {
             type: mongoose.Schema.Types.ObjectId,
@@ -8,7 +8,7 @@ const sectionSchema = mongoose.Schema(
             required: true,
         },
         type: { type: String, required: true },
-        order: { type: Number, default: 0 },
+        order: { type: Number, default: 0 , unique: true},
         content: { type: Object, default: {} },
         editorState: {
             type: Object, 
@@ -23,6 +23,25 @@ const sectionSchema = mongoose.Schema(
         },
 
         activated: { type: Boolean, default: true },
+        has_link: {
+            type: Boolean,
+            default: false
+        },
+        links: [{
+            type: {
+                type: String,
+                enum: ['internal', 'external'],
+                required: true
+            },
+            url: {
+                type: String,
+                required: true
+            },
+            title: {
+                type: String,
+                required: true
+            }
+        }]
     },
     {
         timestamps: {

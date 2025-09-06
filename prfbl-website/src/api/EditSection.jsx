@@ -22,6 +22,7 @@ function EditSection() {
             htmlContent: "",
             plainText: "",
         },
+        has_link: false, // Add this new field
     });
 
     const [pages, setPages] = useState([]);
@@ -100,6 +101,7 @@ function EditSection() {
                     htmlContent: sectionData.htmlContent || "",
                     plainText: sectionData.plainText || "",
                 },
+                has_link: sectionData.has_link || false,
             });
 
             console.log("Loaded section data:", sectionData);
@@ -209,6 +211,7 @@ function EditSection() {
                 editorState: formData.editorContent.editorState,
                 htmlContent: formData.editorContent.htmlContent,
                 plainText: formData.editorContent.plainText,
+                has_link: formData.has_link,
             };
 
             const accessToken = localStorage.getItem("accessToken");
@@ -402,6 +405,23 @@ function EditSection() {
                 />
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                {/* ...existing select and inputs... */}
+                <div className="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="has_link"
+                        name="has_link"
+                        checked={formData.has_link}
+                        onChange={(e) => setFormData({ ...formData, has_link: e.target.checked })}
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="has_link" className="text-gray-700">
+                        Section has links
+                    </label>
+                </div>
+            </div>
+
             <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-2">Content Fields:</h3>
                 {formData.content.map((item, index) => (
@@ -588,50 +608,6 @@ function EditSection() {
                 >
                     Cancel
                 </button>
-            </div>
-
-            {/* Section Preview */}
-            {originalSection && (
-                <div className="mb-6 p-4 border bg-gray-50 rounded">
-                    <h3 className="font-semibold mb-2">
-                        Original Section Data:
-                    </h3>
-                    <div className="text-sm space-y-1">
-                        <p>
-                            <strong>Type:</strong> {originalSection.type}
-                        </p>
-                        <p>
-                            <strong>Order:</strong> {originalSection.order}
-                        </p>
-                        <p>
-                            <strong>Created:</strong>{" "}
-                            {new Date(
-                                originalSection.createdAt
-                            ).toLocaleString()}
-                        </p>
-                        <p>
-                            <strong>Updated:</strong>{" "}
-                            {new Date(
-                                originalSection.updatedAt
-                            ).toLocaleString()}
-                        </p>
-                        <p>
-                            <strong>Content Fields:</strong>{" "}
-                            {Object.keys(originalSection.content || {}).length}
-                        </p>
-                        <p>
-                            <strong>Rich Text:</strong>{" "}
-                            {originalSection.htmlContent ? "Present" : "Empty"}
-                        </p>
-                    </div>
-                </div>
-            )}
-
-            <div className="p-4 border bg-gray-50 rounded">
-                <h3 className="font-semibold mb-2">API Response:</h3>
-                <pre className="whitespace-pre-wrap break-all text-sm">
-                    {JSON.stringify(response, null, 2)}
-                </pre>
             </div>
         </div>
     );

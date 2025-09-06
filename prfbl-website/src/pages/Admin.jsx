@@ -51,6 +51,12 @@ function Admin() {
                     >
                         Admins
                     </Link>
+                                        <Link
+                        className=" mt-4 hover:text-blue-400 before:w-2 before:h-2 before:bg-blue-600 before:left-4 before:rounded-full before:content-[''] before:translate-y-2 before:absolute pl-8 border-b w-full h-fit pb-3 border-dashed border-black hover:underline"
+                        to="links"
+                    >
+                        Links
+                    </Link>
                 </div>
             </div>
             <div className="flex-1 p-4 bg-white overflow-y-auto">

@@ -8,6 +8,7 @@ function AddSection() {
         slug: "",
         type: "",
         order: 0,
+        has_link: false, // Add this line
         content: [],
         // New fields for editor content
         editorContent: {
@@ -132,6 +133,7 @@ function AddSection() {
         const payload = {
             type: formData.type,
             order: Number(formData.order),
+            has_link: formData.has_link, // Add this line
             content: contentObject,
             // Add editor content to the payload
             editorState: formData.editorContent.editorState,
@@ -169,6 +171,7 @@ function AddSection() {
             slug: "",
             type: "",
             order: 0,
+            has_link: false, // Add this line
             content: [],
             editorContent: {
                 editorState: null,
@@ -215,6 +218,24 @@ function AddSection() {
                     placeholder="Section Order"
                     className="border p-2"
                 />
+                <div className="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="has_link"
+                        name="has_link"
+                        checked={formData.has_link}
+                        onChange={(e) =>
+                            setFormData((prev) => ({
+                                ...prev,
+                                has_link: e.target.checked,
+                            }))
+                        }
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <label htmlFor="has_link" className="text-gray-700">
+                        Section has links
+                    </label>
+                </div>
             </div>
 
             <div className="mt-6">
@@ -372,37 +393,6 @@ function AddSection() {
                 >
                     Reset Form
                 </button>
-            </div>
-
-            {/* Debug info */}
-            <div className="mt-6 p-4 border bg-gray-50">
-                <h3 className="font-semibold mb-2">Form Data Preview:</h3>
-                <div className="text-sm space-y-2">
-                    <p>
-                        <strong>Slug:</strong> {formData.slug}
-                    </p>
-                    <p>
-                        <strong>Type:</strong> {formData.type}
-                    </p>
-                    <p>
-                        <strong>Order:</strong> {formData.order}
-                    </p>
-                    <p>
-                        <strong>Content Fields:</strong>{" "}
-                        {formData.content.length}
-                    </p>
-                    <p>
-                        <strong>Editor Content:</strong>{" "}
-                        {formData.editorContent.plainText ? "Present" : "Empty"}
-                    </p>
-                </div>
-            </div>
-
-            <div className="mt-6 p-4 border bg-gray-50">
-                <h3 className="font-semibold mb-2">API Response:</h3>
-                <pre className="whitespace-pre-wrap break-all text-sm">
-                    {JSON.stringify(response, null, 2)}
-                </pre>
             </div>
         </div>
     );

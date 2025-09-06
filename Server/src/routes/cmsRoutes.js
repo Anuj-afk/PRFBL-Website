@@ -12,7 +12,11 @@ import {
     getSection,
     getSectionByPage,
     removeSectionFromPage,
-    getSectionNotInPage
+    getSectionNotInPage,
+    getSectionHasLinks,  // Add this import
+    addLinkToSection, // Add this import
+    getSectionLinks,
+    deleteLink // Add this import
 } from "../Controllers/cmsController.js";
 import { verifyAdmin } from "../middlewares/verify.js";
 
@@ -30,6 +34,10 @@ router.delete("/pages/:slug", verifyAdmin, deletePage);
 router.get("/sections/:id", verifyAdmin, getSection);
 router.get("/sections/:slug", verifyAdmin, getSectionByPage);
 router.delete("/pages/:sectionId/:slug", verifyAdmin, removeSectionFromPage);
+router.get("/sections/:id/has-links", verifyAdmin, getSectionHasLinks); // Add this route
 router.get("/page/sections/:slug", verifyAdmin, getSectionNotInPage);
+router.post('/sections/:sectionId/links', verifyAdmin, addLinkToSection);
+router.get('/sections/:sectionId/links', verifyAdmin, getSectionLinks);
+router.delete('/sections/:sectionId/links/:linkId', verifyAdmin, deleteLink);
 
 export default router;

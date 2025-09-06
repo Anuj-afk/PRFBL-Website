@@ -13,7 +13,7 @@ export default function Login() {
         setError("");
 
         try {
-            const res = await axios.post("https://prfbl-website.onrender.com/adminLogin", {
+            const res = await axios.post(`${import.meta.env.VITE_SERVER_DOMAIN}/adminLogin`, {
                 email,
                 password,
             });
